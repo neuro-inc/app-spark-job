@@ -1,0 +1,41 @@
+# these come from spark-operator chart in https://github.com/kubeflow/spark-operator/blob/master/charts/spark-operator-chart/values.yaml
+spark-operator:
+  spark:
+    jobNamespaces: null
+    serviceAccount:
+      create: true
+      name: ""
+      annotations: {}
+      automountServiceAccountToken: true
+    rbac:
+      create: true
+      annotations: {}
+
+spark:
+  type: Python
+  pythonVersion: null # "3"
+  image:
+    repository: spark
+    tag: 3.5.3
+  mainApplicationFile: main.py
+  volumes: []
+  driver:
+    env: []
+    volumeMounts: []
+  executor:
+    volumeMounts: []
+    env: []
+  dynamicAllocation:
+    enabled: false
+    initialExecutors: null
+    minExecutors: null
+    maxExecutors: null
+    shuffleTrackingTimeout: null
+  deps:
+    jars: []
+    files: []
+    pyFiles: []
+    packages: []
+    excludePackages: []
+    repositories: []
+    archives: []

@@ -1,0 +1,99 @@
+apiVersion: sparkoperator.k8s.io/v1beta2
+kind: SparkApplication
+metadata:
+  name: {{ include "spark-job.fullname" . }}
+  labels:
+    {{- include "spark-job.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.spark }}
+  type: {{ .type }}
+  mode: cluster
+  {{- if .pythonVersion }}
+  pythonVersion: "{{ .pythonVersion }}"
+  {{- end }}
+  image: {{ .image.repository }}:{{ .image.tag }}
+  imagePullPolicy: IfNotPresent
+  mainApplicationFile: {{ .mainApplicationFile }}
+  sparkVersion: 3.5.3
+  driver:
+    labels:
+      version: 3.5.3
+    cores: 1
+    memory: 2G
+    serviceAccount: spark-operator-spark
+    {{- if .driver.volumeMounts -}}
+    volumeMounts:
+      {{- .driver.volumeMounts | nindent 6 }}
+    {{- end }}
+    {{- if .driver.env -}}
+    env:
+      {{- .driver.env | nindent 6 }}
+    {{- end }}
+  executor:
+    labels:
+      version: 3.5.3
+    instances: 1
+    cores: 1
+    memory: 2G
+    {{- if .executor.volumeMounts -}}
+    volumeMounts:
+      {{- .executor.volumeMounts | nindent 6 }}
+    {{- end }}
+    {{- if .executor.env -}}
+    env:
+      {{- .executor.env | nindent 6 }}
+    {{- end }}
+  {{- if .volumes }}
+  volumes:
+    {{- .volumes | nindent 4 }}
+  {{- end }}
+  {{- if .dynamicAllocation.enabled -}}
+  {{ with .dynamicAllocation }}
+  dynamicAllocation:
+    enabled: true
+    {{- if .minExecutors }}
+    minExecutors: {{ .minExecutors }}
+    {{- end }}
+    {{- if .maxExecutors }}
+    maxExecutors: {{ .maxExecutors }}
+    {{- end }}
+    {{- if .initialExecutors }}
+    initialExecutors: {{ .initialExecutors }}
+    {{- end }}
+    {{- if .shuffleTrackingTimeout }}
+    shuffleTrackingTimeout: {{ .shuffleTrackingTimeout }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- with .deps }}
+  deps:
+    {{- if .jars }}
+    jars:
+      {{- .jars | nindent 6 }}
+    {{- end }}
+    {{- if .files }}
+    files:
+      {{- .files | nindent 6 }}
+    {{- end }}
+    {{- if .pyFiles }}
+    pyFiles:
+      {{- .pyFiles | nindent 6 }}
+    {{- end }}
+    {{- if .packages }}
+    packages:
+      {{- .packages | nindent 4 }}
+    {{- end }}
+    {{- if .excludePackages }}
+    excludePackages:
+      {{- .excludePackages | nindent 4 }}
+    {{- end }}
+    {{- if .repositories }}
+    repositories:
+      {{- .repositories | nindent 4 }}
+    {{- end }}
+    {{- if .archives }}
+    archives:
+      {{- .archives | nindent 4 }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
