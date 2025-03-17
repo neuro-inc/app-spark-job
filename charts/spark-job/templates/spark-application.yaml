@@ -18,6 +18,9 @@ spec:
   driver:
     labels:
       version: 3.5.3
+      {{- if .driver.labels }}
+      {{- .driver.labels | toYaml | nindent 6 }}
+      {{- end }}
     cores: 1
     memory: 2G
     serviceAccount: spark-operator-spark
@@ -32,6 +35,9 @@ spec:
   executor:
     labels:
       version: 3.5.3
+      {{- if .executor.labels }}
+      {{- .executor.labels | toYaml | nindent 6 }}
+      {{- end }}
     instances: 1
     cores: 1
     memory: 2G
