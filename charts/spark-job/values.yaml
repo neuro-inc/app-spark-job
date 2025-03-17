@@ -20,13 +20,13 @@ spark:
   mainApplicationFile: main.py
   volumes: []
   driver:
-    labels: {
-      "test": "test"
-    }
+    labels: {}
+    annotations: {}
     env: []
     volumeMounts: []
   executor:
     labels: {}
+    annotations: {}
     volumeMounts: []
     env: []
   dynamicAllocation:
