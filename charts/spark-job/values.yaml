@@ -43,12 +43,12 @@ spark:
     excludePackages: []
     repositories: []
     archives: []
-    pypi_packages: []
+    pypi_packages: ["pyspark==3.5.5"]
 
-pyspark-dep-manager:
+pyspark_dep_manager:
   image:
     repository: ghcr.io/neuro-inc/pyspark-dep-manager
-    tag: latest
+    tag: pr-1 # latest
   labels: {}
   annotations: {}
   add_test_volumes: false
@@ -58,4 +58,4 @@ pyspark-dep-manager:
   volumeMounts:
     - name: export
       mountPath: /mnt/export
-      hostPath: 
+      hostPath: /host/deps

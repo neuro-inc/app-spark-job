@@ -34,11 +34,11 @@ jobs:
             tags: |
               type=ref,event=pr
       - name: Build Docker image
-        run: make build-image
+        run: make build-image-pydeps
       - name: Release branch image
         run: |
           export IMAGE_REF=${{ steps.meta.outputs.tags }}
-          make push-image
+          make push-image-pydeps
   release:
     name: Release image
     runs-on: ubuntu-latest
