@@ -23,17 +23,18 @@ spec:
           imagePullPolicy: IfNotPresent
           command: ["./generate-pex.sh"]
           args: 
+            - "-v"
             - "-o"
             - "/mnt/export/pyspark_pex_env.pex"
             - {{ .Values.spark.deps.pypi_packages | join " " }}
           {{- if .Values.pyspark_dep_manager.add_test_volumes }}
           volumeMounts:
-            {{- .Values.pyspark_dep_manager.volumeMounts | toYaml | nindent 10 }}
+            {{- .Values.pyspark_dep_manager.volumeMounts | toYaml | nindent 12 }}
           {{- end }}
       restartPolicy: Never
+      {{- if .Values.pyspark_dep_manager.add_test_volumes }}
+      volumes:
+        {{- .Values.pyspark_dep_manager.volumes | toYaml | nindent 8 }}
+      {{- end }}
   backoffLimit: 4
-  {{- if .Values.pyspark_dep_manager.add_test_volumes }}
-  volumes:
-    {{- .Values.pyspark_dep_manager.volumes | toYaml | nindent 4 }}
-  {{- end }}
 {{- end }}

@@ -48,14 +48,15 @@ spark:
 pyspark_dep_manager:
   image:
     repository: ghcr.io/neuro-inc/pyspark-dep-manager
-    tag: pr-1 # latest
+    tag: latest
   labels: {}
   annotations: {}
-  add_test_volumes: false
+  add_test_volumes: true
   volumes:
-    - name: export
-      emptyDir: {}
+    - name: deps-export
+      hostPath: 
+        path: /host/deps
+      # emptyDir: {}
   volumeMounts:
-    - name: export
+    - name: deps-export
       mountPath: /mnt/export
-      hostPath: /host/deps
