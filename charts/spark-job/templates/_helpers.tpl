@@ -34,6 +34,7 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "spark-job.labels" -}}
+application: spark-job
 helm.sh/chart: {{ include "spark-job.chart" . }}
 {{ include "spark-job.selectorLabels" . }}
 {{- if .Chart.AppVersion }}

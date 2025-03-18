@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "spark-job.fullname" . }}
+  labels:
+    {{- include "spark-job.labels" . | nindent 4 }}
+    {{- if .Values.pyspark-dep-manager.labels }}
+    {{- .Values.pyspark-dep-manager.labels | toYaml | nindent 4 }}
+    {{- end }}
+  {{- if .Values.pyspark-dep-manager.annotations }}
+  annotations:
+    {{- .Values.pyspark-dep-manager.annotations | toYaml | nindent 4 }}
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: '1'
+  {{- end }}
+spec:
+  template:
+    spec:
+      containers:
+      - name: pyspark-dep-manager
+        image: {{ .Values.pyspark-dep-manager.image.repository }}:{{ .Values.pyspark-dep-manager.image.tag }}
+        imagePullPolicy: IfNotPresent
+        command: ["./generate-pex.sh"]
+        args: 
+          - "-o",
+          - "/mnt/export/pyspark_pex_env.pex"
+          - {{ .Values.spark.deps.pypi_packages | join " " }}
+        {{- if .Values.pyspark-dep-manager.add_test_volumes }}
+        volumeMounts:
+          {{- .Values.pyspark-dep-manager.volumeMounts | toYaml | nindent 10 }}
+        {{- end }}
+      restartPolicy: Never
+  backoffLimit: 4
+  {{- if .Values.pyspark-dep-manager.add_test_volumes }}
+  volumes:
+    {{- .Values.pyspark-dep-manager.volumes | toYaml | nindent 4 }}
+  {{- end }}
