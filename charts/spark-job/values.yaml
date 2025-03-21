@@ -24,11 +24,17 @@ spark:
     annotations: {}
     env: []
     volumeMounts: []
+    affinity: {}
+    tolerations: []
+    resources: {}
   executor:
     labels: {}
     annotations: {}
     volumeMounts: []
     env: []
+    affinity: {}
+    tolerations: []
+    resources: {}
   dynamicAllocation:
     enabled: false
     initialExecutors: null

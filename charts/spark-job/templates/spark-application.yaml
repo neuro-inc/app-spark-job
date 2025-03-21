@@ -25,6 +25,18 @@ spec:
     annotations:
       {{- .driver.annotations | toYaml | nindent 6 }}
     {{- end }}
+    {{- if .driver.affinity }}
+    affinity:
+      {{- .driver.affinity | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .driver.tolerations }}
+    tolerations:
+      {{- .driver.tolerations | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .driver.resources }}
+    resources:
+      {{- .driver.resources | toYaml | nindent 6 }}
+    {{- end }}
     cores: 1
     memory: 2G
     serviceAccount: spark-operator-spark
@@ -45,6 +57,18 @@ spec:
     {{- if .executor.annotations }}
     annotations:
       {{- .executor.annotations | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .executor.affinity }}
+    affinity:
+      {{- .executor.affinity | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .executor.tolerations }}
+    tolerations:
+      {{- .executor.tolerations | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .executor.resources }}
+    resources:
+      {{- .executor.resources | toYaml | nindent 6 }}
     {{- end }}
     instances: 1
     cores: 1
