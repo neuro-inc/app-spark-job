@@ -12,6 +12,7 @@ spark-operator:
       annotations: {}
 
 spark:
+  namespace: default
   type: Python
   pythonVersion: null # "3"
   image:
