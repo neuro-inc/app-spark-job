@@ -14,10 +14,11 @@ spec:
   image: {{ .image.repository }}:{{ .image.tag }}
   imagePullPolicy: IfNotPresent
   mainApplicationFile: {{ .mainApplicationFile }}
-  sparkVersion: 3.5.3
+  sparkVersion: {{ .sparkVersion }}
+  {{- end }}
   driver:
     labels:
-      version: 3.5.3
+      version: {{ .sparkVersion }}
       {{- if .driver.labels }}
       {{- .driver.labels | toYaml | nindent 6 }}
       {{- end }}
@@ -50,7 +51,7 @@ spec:
     {{- end }}
   executor:
     labels:
-      version: 3.5.3
+      version: {{ .sparkVersion }}
       {{- if .executor.labels }}
       {{- .executor.labels | toYaml | nindent 6 }}
       {{- end }}

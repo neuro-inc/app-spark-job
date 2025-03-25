@@ -13,6 +13,7 @@ spark-operator:
 
 spark:
   namespace: default
+  sparkVersion: 3.5.3
   type: Python
   pythonVersion: null # "3"
   image:
