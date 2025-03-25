@@ -16,6 +16,16 @@ metadata:
   {{- end }}
 spec:
   template:
+    metadata:
+      labels:
+        {{- include "spark-job.labels" . | nindent 8 }}
+        {{- if .Values.pyspark_dep_manager.labels }}
+        {{- .Values.pyspark_dep_manager.labels | toYaml | nindent 8 }}
+        {{- end }}
+      {{- if .Values.pyspark_dep_manager.annotations }}
+      annotations:
+        {{- .Values.pyspark_dep_manager.annotations | toYaml | nindent 8 }}
+      {{- end }}
     spec:
       containers:
         - name: "pyspark-dep-manager"
