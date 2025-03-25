@@ -58,6 +58,7 @@ pyspark_dep_manager:
     tag: latest
   labels: {}
   annotations: {}
+  output_file_path: /mnt/export/pyspark_pex_env.pex
   add_test_volumes: true
   volumes:
     - name: deps-export

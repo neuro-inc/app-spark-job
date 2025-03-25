@@ -35,7 +35,7 @@ spec:
           args: 
             - "-v"
             - "-o"
-            - "/mnt/export/pyspark_pex_env.pex"
+            - "{{ .Values.pyspark_dep_manager.output_file_path }}"
             - {{ .Values.spark.deps.pypi_packages | join " " }}
           {{- if .Values.pyspark_dep_manager.add_test_volumes }}
           volumeMounts:
