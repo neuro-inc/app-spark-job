@@ -20,6 +20,7 @@ spark:
     repository: spark
     tag: 3.5.3
   mainApplicationFile: main.py
+  arguments: []
   volumes: []
   driver:
     labels: {}

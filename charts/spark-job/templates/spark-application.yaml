@@ -15,6 +15,9 @@ spec:
   imagePullPolicy: IfNotPresent
   mainApplicationFile: {{ .mainApplicationFile }}
   sparkVersion: {{ .sparkVersion }}
+  {{- if .arguments }}
+  arguments:
+    {{- .arguments | toYaml | nindent 4 }}
   {{- end }}
   driver:
     labels:
