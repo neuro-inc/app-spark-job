@@ -3,7 +3,7 @@
 # Default values
 verbose=false
 level=0
-output="/mnt/export/pyspark_pex_env.pex"
+output="/opt/spark/deps/pyspark_pex_env.pex"
 
 # Help function
 usage() {

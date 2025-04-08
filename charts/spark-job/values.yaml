@@ -60,7 +60,7 @@ pyspark_dep_manager:
     tag: latest
   labels: {}
   annotations: {}
-  output_file_path: /mnt/export/pyspark_pex_env.pex
+  output_file_path: /opt/spark/deps/pyspark_pex_env.pex
   add_test_volumes: false
   volumes:
     - name: deps-export
@@ -69,4 +69,4 @@ pyspark_dep_manager:
       # emptyDir: {}
   volumeMounts:
     - name: deps-export
-      mountPath: /mnt/export
+      mountPath: /opt/spark/deps
