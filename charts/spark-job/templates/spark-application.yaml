@@ -74,7 +74,7 @@ spec:
     resources:
       {{- .executor.resources | toYaml | nindent 6 }}
     {{- end }}
-    instances: 1
+    instances: {{ .executor.instances }}
     cores: 1
     memory: 2G
     {{- if .executor.volumeMounts }}
