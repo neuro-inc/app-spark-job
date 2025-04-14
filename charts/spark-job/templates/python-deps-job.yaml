@@ -1,0 +1,50 @@
+{{- if .Values.spark.deps.pypi_packages -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "spark-job.fullname" . }}
+  labels:
+    {{- include "spark-job.labels" . | nindent 4 }}
+    {{- if .Values.pyspark_dep_manager.labels }}
+    {{- .Values.pyspark_dep_manager.labels | toYaml | nindent 4 }}
+    {{- end }}
+  {{- if .Values.pyspark_dep_manager.annotations }}
+  annotations:
+    {{- .Values.pyspark_dep_manager.annotations | toYaml | nindent 4 }}
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: '1'
+  {{- end }}
+spec:
+  template:
+    metadata:
+      labels:
+        {{- include "spark-job.labels" . | nindent 8 }}
+        {{- if .Values.pyspark_dep_manager.labels }}
+        {{- .Values.pyspark_dep_manager.labels | toYaml | nindent 8 }}
+        {{- end }}
+      {{- if .Values.pyspark_dep_manager.annotations }}
+      annotations:
+        {{- .Values.pyspark_dep_manager.annotations | toYaml | nindent 8 }}
+      {{- end }}
+    spec:
+      containers:
+        - name: "pyspark-dep-manager"
+          image: "{{ .Values.pyspark_dep_manager.image.repository }}:{{ .Values.pyspark_dep_manager.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          command: ["./generate-pex.sh"]
+          args: 
+            - "-v"
+            - "-o"
+            - "{{ .Values.pyspark_dep_manager.output_file_path }}"
+            - {{ .Values.spark.deps.pypi_packages | join " " }}
+          {{- if .Values.pyspark_dep_manager.add_test_volumes }}
+          volumeMounts:
+            {{- .Values.pyspark_dep_manager.volumeMounts | toYaml | nindent 12 }}
+          {{- end }}
+      restartPolicy: Never
+      {{- if .Values.pyspark_dep_manager.add_test_volumes }}
+      volumes:
+        {{- .Values.pyspark_dep_manager.volumes | toYaml | nindent 8 }}
+      {{- end }}
+  backoffLimit: 4
+{{- end }}

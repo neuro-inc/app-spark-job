@@ -12,23 +12,32 @@ spark-operator:
       annotations: {}
 
 spark:
+  namespace: default
+  sparkVersion: 3.5.3
   type: Python
   pythonVersion: null # "3"
   image:
     repository: spark
     tag: 3.5.3
   mainApplicationFile: main.py
+  arguments: []
   volumes: []
   driver:
-    labels: {
-      "test": "test"
-    }
+    labels: {}
+    annotations: {}
     env: []
     volumeMounts: []
+    affinity: {}
+    tolerations: []
+    resources: {}
   executor:
     labels: {}
+    annotations: {}
     volumeMounts: []
     env: []
+    affinity: {}
+    tolerations: []
+    resources: {}
   dynamicAllocation:
     enabled: false
     initialExecutors: null
@@ -43,3 +52,21 @@ spark:
     excludePackages: []
     repositories: []
     archives: []
+    pypi_packages: ["pyspark==3.5.5"]
+
+pyspark_dep_manager:
+  image:
+    repository: ghcr.io/neuro-inc/pyspark-dep-manager
+    tag: latest
+  labels: {}
+  annotations: {}
+  output_file_path: /opt/spark/deps/pyspark_pex_env.pex
+  add_test_volumes: false
+  volumes:
+    - name: deps-export
+      hostPath: 
+        path: /host/deps
+      # emptyDir: {}
+  volumeMounts:
+    - name: deps-export
+      mountPath: /opt/spark/deps

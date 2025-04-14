@@ -14,46 +14,82 @@ spec:
   image: {{ .image.repository }}:{{ .image.tag }}
   imagePullPolicy: IfNotPresent
   mainApplicationFile: {{ .mainApplicationFile }}
-  sparkVersion: 3.5.3
+  sparkVersion: {{ .sparkVersion }}
+  {{- if .arguments }}
+  arguments:
+    {{- .arguments | toYaml | nindent 4 }}
+  {{- end }}
   driver:
     labels:
-      version: 3.5.3
+      version: {{ .sparkVersion }}
       {{- if .driver.labels }}
       {{- .driver.labels | toYaml | nindent 6 }}
       {{- end }}
+    {{- if .driver.annotations }}
+    annotations:
+      {{- .driver.annotations | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .driver.affinity }}
+    affinity:
+      {{- .driver.affinity | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .driver.tolerations }}
+    tolerations:
+      {{- .driver.tolerations | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .driver.resources }}
+    resources:
+      {{- .driver.resources | toYaml | nindent 6 }}
+    {{- end }}
     cores: 1
     memory: 2G
     serviceAccount: spark-operator-spark
-    {{- if .driver.volumeMounts -}}
+    {{- if .driver.volumeMounts }}
     volumeMounts:
       {{- .driver.volumeMounts | nindent 6 }}
     {{- end }}
-    {{- if .driver.env -}}
+    {{- if .driver.env }}
     env:
-      {{- .driver.env | nindent 6 }}
+      {{- .driver.env | toYaml | nindent 6 }}
     {{- end }}
   executor:
     labels:
-      version: 3.5.3
+      version: {{ .sparkVersion }}
       {{- if .executor.labels }}
       {{- .executor.labels | toYaml | nindent 6 }}
       {{- end }}
-    instances: 1
+    {{- if .executor.annotations }}
+    annotations:
+      {{- .executor.annotations | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .executor.affinity }}
+    affinity:
+      {{- .executor.affinity | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .executor.tolerations }}
+    tolerations:
+      {{- .executor.tolerations | toYaml | nindent 6 }}
+    {{- end }}
+    {{- if .executor.resources }}
+    resources:
+      {{- .executor.resources | toYaml | nindent 6 }}
+    {{- end }}
+    instances: {{ .executor.instances }}
     cores: 1
     memory: 2G
-    {{- if .executor.volumeMounts -}}
+    {{- if .executor.volumeMounts }}
     volumeMounts:
       {{- .executor.volumeMounts | nindent 6 }}
     {{- end }}
-    {{- if .executor.env -}}
+    {{- if .executor.env }}
     env:
-      {{- .executor.env | nindent 6 }}
+      {{- .executor.env | toYaml | nindent 6 }}
     {{- end }}
   {{- if .volumes }}
   volumes:
     {{- .volumes | nindent 4 }}
   {{- end }}
-  {{- if .dynamicAllocation.enabled -}}
+  {{- if .dynamicAllocation.enabled }}
   {{ with .dynamicAllocation }}
   dynamicAllocation:
     enabled: true
