@@ -2,7 +2,7 @@ import typing as t
 
 from yarl import URL
 
-from apolo_app_types import ContainerImage, SparkJobInputs
+from apolo_app_types import ContainerImage
 from apolo_app_types.app_types import AppType
 from apolo_app_types.helm.apps.base import BaseChartValueProcessor
 from apolo_app_types.helm.apps.common import (
@@ -18,7 +18,7 @@ from apolo_app_types.protocols.common.storage import (
     ApoloMountModes,
     MountPath,
 )
-from apolo_app_types.protocols.spark_job import _SPARK_DEFAULTS
+from apolo_apps_spark_job.types import _SPARK_DEFAULTS, SparkJobInputs
 
 
 class SparkJobInputsProcessor(BaseChartValueProcessor[SparkJobInputs]):
