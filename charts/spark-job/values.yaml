@@ -64,7 +64,7 @@ pyspark_dep_manager:
   add_test_volumes: false
   volumes:
     - name: deps-export
-      hostPath: 
+      hostPath:
         path: /host/deps
       # emptyDir: {}
   volumeMounts:
