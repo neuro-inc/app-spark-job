@@ -3,7 +3,7 @@ IMAGE_NAME ?= pyspark-dep-manager
 IMAGE_TAG ?= latest
 IMAGE_REF = $(IMAGE_REPO)/$(IMAGE_NAME):$(IMAGE_TAG)
 HOOK_IMAGE_NAME ?= mlops-app-spark-job
-HOOK_IMAGE_TAG := latest
+HOOK_IMAGE_TAG ?= latest
 
 
 SHELL := /bin/sh -e
