@@ -1,0 +1,33 @@
+- app_type: spark-job
+  name: spark-job
+  title: Apache Spark
+  install_type: workflow
+  helm_path: charts/spark-job
+  git_url: https://github.com/neuro-inc/app-spark-job
+  app_package_name: apolo_apps_spark_job
+  inputs:
+    schema_path: .apolo/src/apolo_apps_spark_job/schemas/SparkJobInputs.json
+    types_name: SparkJobInputs
+    processor: SparkJobInputsProcessor
+    image: ghcr.io/neuro-inc/mlops-app-spark-job
+  outputs:
+    schema_path: .apolo/src/apolo_apps_spark_job/schemas/SparkJobOutputs.json
+    types_name: SparkJobOutputs
+    processor: SparkJobOutputsProcessor
+    image: ghcr.io/neuro-inc/mlops-app-spark-job
+  short_description: Start scalable Spark application easily
+  description: |
+    Spark Application provides a simple interface to run scalable data processing jobs using Apache Spark on Kubernetes. Powered by Kubeflow's Spark Operator, it automatically manages Spark drivers and executors, making it easy to process large datasets efficiently.
+  pub_date: "2025-01-01T00:00:00+00:00"
+  logo: https://storage.googleapis.com/development-421920-assets/app-logos/spark.svg
+  tags: ["Apache", "Spark", "Data processing", "Big data", "ETL", "ELT"]
+  urls:
+    - name: Spark Documentation
+      type: documentation
+      url: https://spark.apache.org/docs/latest/
+    - name: Spark Operator
+      type: documentation
+      url: https://github.com/kubeflow/spark-operator
+  assets:
+    - type: image
+      url: https://storage.googleapis.com/development-421920-assets/app-logos/spark-banner.svg

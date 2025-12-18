@@ -32,7 +32,7 @@ spec:
           image: "{{ .Values.pyspark_dep_manager.image.repository }}:{{ .Values.pyspark_dep_manager.image.tag }}"
           imagePullPolicy: IfNotPresent
           command: ["./generate-pex.sh"]
-          args: 
+          args:
             - "-v"
             - "-o"
             - "{{ .Values.pyspark_dep_manager.output_file_path }}"
