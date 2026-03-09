@@ -37,6 +37,10 @@ spec:
             - "-o"
             - "{{ .Values.pyspark_dep_manager.output_file_path }}"
             - {{ .Values.spark.deps.pypi_packages | join " " }}
+          {{- if .Values.pyspark_dep_manager.resources }}
+          resources:
+            {{- .Values.pyspark_dep_manager.resources | toYaml | nindent 12 }}
+          {{- end }}
           {{- if .Values.pyspark_dep_manager.add_test_volumes }}
           volumeMounts:
             {{- .Values.pyspark_dep_manager.volumeMounts | toYaml | nindent 12 }}
