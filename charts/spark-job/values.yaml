@@ -29,10 +29,7 @@ spark:
     volumeMounts: []
     affinity: {}
     tolerations: []
-    resources:
-      requests:
-        cpu: "1"
-        memory: "2Gi"
+    resources: {}
   executor:
     labels: {}
     annotations: {}
@@ -40,10 +37,7 @@ spark:
     env: []
     affinity: {}
     tolerations: []
-    resources:
-      requests:
-        cpu: "1"
-        memory: "2Gi"
+    resources: {}
   dynamicAllocation:
     enabled: false
     initialExecutors: null
@@ -68,10 +62,6 @@ pyspark_dep_manager:
   annotations: {}
   output_file_path: /opt/spark/deps/pyspark_pex_env.pex
   add_test_volumes: false
-  resources:
-    requests:
-      cpu: "500m"
-      memory: "1Gi"
   volumes:
     - name: deps-export
       hostPath:

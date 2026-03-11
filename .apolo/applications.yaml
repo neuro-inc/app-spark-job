@@ -18,9 +18,6 @@
   short_description: Start scalable Spark application easily
   description: |
     Spark Application provides a simple interface to run scalable data processing jobs using Apache Spark on Kubernetes. Powered by Kubeflow's Spark Operator, it automatically manages Spark drivers and executors, making it easy to process large datasets efficiently.
-    Resource sizing options:
-    - Lean (dev/test): 2 vCPU, 8 GiB RAM
-    - Balanced (prod): 4 vCPU, 16 GiB RAM
   pub_date: "2025-01-01T00:00:00+00:00"
   logo: https://storage.googleapis.com/development-421920-assets/app-logos/spark.svg
   tags: ["Apache", "Spark", "Data processing", "Big data", "ETL", "ELT"]
