@@ -39,7 +39,8 @@ class DriverConfig(AbstractAppFieldType):
         ...,
         json_schema_extra=SchemaExtraMetadata(
             title="Driver Preset",
-            description="Specify preset configuration to be used by the driver",
+            description="Specify preset configuration to be used by the driver. "
+            "Minimal resources: 1 CPU cores, 2 GiB memory.",
         ).as_json_schema_extra(),
     )
 
@@ -65,7 +66,8 @@ class ExecutorConfig(AbstractAppFieldType):
         ...,
         json_schema_extra=SchemaExtraMetadata(
             title="Executor Preset",
-            description="Specify preset configuration to be used by the executor.",
+            description="Specify preset configuration to be used by the executor. "
+            "Minimal resources: 1 CPU cores, 2 GiB memory.",
         ).as_json_schema_extra(),
     )
 

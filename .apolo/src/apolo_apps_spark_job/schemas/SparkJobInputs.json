@@ -209,7 +209,7 @@
       "properties": {
         "preset": {
           "$ref": "#/$defs/Preset",
-          "x-description": "Specify preset configuration to be used by the driver",
+          "x-description": "Specify preset configuration to be used by the driver. Minimal resources: 1 CPU cores, 2 GiB memory.",
           "x-title": "Driver Preset"
         }
       },
@@ -240,7 +240,7 @@
         },
         "preset": {
           "$ref": "#/$defs/Preset",
-          "x-description": "Specify preset configuration to be used by the executor.",
+          "x-description": "Specify preset configuration to be used by the executor. Minimal resources: 1 CPU cores, 2 GiB memory.",
           "x-title": "Executor Preset"
         }
       },
