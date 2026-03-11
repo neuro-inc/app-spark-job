@@ -695,12 +695,10 @@
     },
     "driver_config": {
       "$ref": "#/$defs/DriverConfig",
-      "x-description": "Configure resources and environment for the Spark driver. Minimal resources: 1 CPU cores, 2 GiB memory.",
       "x-is-advanced-field": true
     },
     "executor_config": {
       "$ref": "#/$defs/ExecutorConfig",
-      "x-description": "Define the compute resources and behavior for Spark executors. Minimal resources: 1 CPU cores, 2 GiB memory.",
       "x-is-advanced-field": true
     }
   },

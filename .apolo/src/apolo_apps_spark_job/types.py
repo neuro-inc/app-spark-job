@@ -308,8 +308,7 @@ class SparkJobInputs(AppInputs):
         ...,
         json_schema_extra=SchemaExtraMetadata(
             title="Driver Configuration",
-            description="Configure resources and environment for the Spark driver. "
-            "Minimal resources: 1 CPU cores, 2 GiB memory.",
+            description="Configure resources and environment for the Spark driver.",
             is_advanced_field=True,
         ).as_json_schema_extra(),
     )
@@ -319,8 +318,7 @@ class SparkJobInputs(AppInputs):
         json_schema_extra=SchemaExtraMetadata(
             title="Executor Configuration",
             description="Define the compute resources "
-            "and behavior for Spark executors. "
-            "Minimal resources: 1 CPU cores, 2 GiB memory.",
+            "and behavior for Spark executors.",
             is_advanced_field=True,
         ).as_json_schema_extra(),
     )
